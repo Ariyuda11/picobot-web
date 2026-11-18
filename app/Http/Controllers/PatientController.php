@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -34,7 +35,9 @@ class PatientController extends Controller
     {
         $this->authorizeAdmin();
 
-        return view('patients.create');
+        $patientUsers = User::where('role', 'pasien')->orderBy('name')->get();
+
+        return view('patients.create', compact('patientUsers'));
     }
 
     // Menyimpan data pasien baru
@@ -72,6 +75,12 @@ class PatientController extends Controller
                 'string',
                 'max:20'
             ],
+            'user_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('users', 'id')->where('role', 'pasien'),
+                'unique:patients,user_id',
+            ],
         ]);
 
         Patient::create($validated);
@@ -94,7 +103,9 @@ class PatientController extends Controller
     {
         $this->authorizeAdmin();
 
-        return view('patients.edit', compact('patient'));
+        $patientUsers = User::where('role', 'pasien')->orderBy('name')->get();
+
+        return view('patients.edit', compact('patient', 'patientUsers'));
     }
 
     // Memperbarui data pasien
@@ -132,6 +143,12 @@ class PatientController extends Controller
                 'nullable',
                 'string',
                 'max:20'
+            ],
+            'user_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('users', 'id')->where('role', 'pasien'),
+                Rule::unique('patients', 'user_id')->ignore($patient->id),
             ],
         ]);
 

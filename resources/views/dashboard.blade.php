@@ -432,18 +432,47 @@
 
         <div class="menu-grid">
 
-            <!-- DATA PASIEN -->
-            <a href="{{ route('patients.index') }}" class="card-link">
+            @if(Auth::user()->role === 'admin')
+                <!-- DATA PASIEN -->
+                <a href="{{ route('patients.index') }}" class="card-link">
+                    <div class="card">
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-hospital-user"></i>
+                        </div>
+
+                        <h3>Data Pasien</h3>
+
+                        <p>
+                            Mengelola informasi pasien, menambahkan data,
+                            melihat detail, memperbarui, dan menghapus data pasien.
+                        </p>
+
+                        <div class="card-arrow">
+                            Buka Menu <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+            @endif
+
+            <!-- RIWAYAT LATIHAN -->
+            <a href="{{ Auth::user()->role === 'admin'
+                    ? route('exercise-histories.index')
+                    : route('my-exercise-histories.index') }}"
+               class="card-link">
                 <div class="card">
-                    <div class="card-icon blue">
-                        <i class="fa-solid fa-hospital-user"></i>
+                    <div class="card-icon green">
+                        <i class="fa-solid fa-clipboard-list"></i>
                     </div>
 
-                    <h3>Data Pasien</h3>
+                    <h3>
+                        {{ Auth::user()->role === 'admin'
+                            ? 'Riwayat Latihan'
+                            : 'Riwayat Latihan Saya' }}
+                    </h3>
 
                     <p>
-                        Mengelola informasi pasien, menambahkan data,
-                        melihat detail, memperbarui, dan menghapus data pasien.
+                        Menyediakan informasi riwayat aktivitas latihan
+                        rehabilitasi yang dilakukan oleh pasien.
                     </p>
 
                     <div class="card-arrow">
@@ -451,24 +480,6 @@
                     </div>
                 </div>
             </a>
-
-            <!-- RIWAYAT LATIHAN -->
-            <div class="card">
-                <div class="card-icon green">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                </div>
-
-                <h3>Riwayat Latihan</h3>
-
-                <p>
-                    Menyediakan informasi riwayat aktivitas latihan
-                    rehabilitasi yang dilakukan oleh pasien.
-                </p>
-
-                <div class="card-arrow">
-                    Segera Hadir
-                </div>
-            </div>
 
             <!-- MONITORING PROGRES -->
             <div class="card">
