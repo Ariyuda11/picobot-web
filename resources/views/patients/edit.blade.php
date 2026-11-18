@@ -469,6 +469,31 @@
                 </div>
 
                 <div class="form-group full">
+                    <label for="user_id">Akun Login Pasien</label>
+
+                    <select
+                        id="user_id"
+                        name="user_id"
+                        class="form-control @error('user_id') is-invalid @enderror"
+                    >
+                        <option value="">-- Belum Dihubungkan --</option>
+
+                        @foreach($patientUsers as $patientUser)
+                            <option
+                                value="{{ $patientUser->id }}"
+                                {{ (string) old('user_id', $patient->user_id) === (string) $patientUser->id ? 'selected' : '' }}
+                            >
+                                {{ $patientUser->name }} ({{ $patientUser->username }})
+                            </option>
+                        @endforeach
+                    </select>
+
+                    @error('user_id')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group full">
                     <label for="address">Alamat Lengkap</label>
 
                     <textarea

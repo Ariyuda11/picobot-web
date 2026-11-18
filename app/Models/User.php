@@ -6,6 +6,7 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 
@@ -56,5 +57,13 @@ class User extends Authenticatable
     public function patient(): HasOne
     {
         return $this->hasOne(Patient::class);
+    }
+
+    /**
+     * Riwayat latihan yang dicatat oleh akun pengguna.
+     */
+    public function recordedExerciseHistories(): HasMany
+    {
+        return $this->hasMany(ExerciseHistory::class, 'recorded_by');
     }
 }

@@ -355,6 +355,15 @@
                 <h3>{{ $patient->phone ?: '-' }}</h3>
             </div>
 
+            <div class="detail-item">
+                <small>Akun Login Pasien</small>
+                <h3>
+                    {{ $patient->user
+                        ? $patient->user->name . ' (' . $patient->user->username . ')'
+                        : 'Belum dihubungkan' }}
+                </h3>
+            </div>
+
             <div class="detail-item full">
                 <small>Alamat Lengkap</small>
                 <h3>{{ $patient->address ?: '-' }}</h3>
