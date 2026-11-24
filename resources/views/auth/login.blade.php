@@ -417,6 +417,45 @@
                 transition: none !important;
             }
         }
+        .success-message {
+            padding: 12px;
+            border-radius: 9px;
+            background: #ecfdf5;
+            color: #15803d;
+            font-size: 12px;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .switch-link {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 12px;
+            color: #8493a5;
+        }
+
+        .switch-link a {
+            color: #087e8b;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .switch-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-list {
+            margin: 0;
+            padding-left: 16px;
+            line-height: 1.7;
+        }
+
+        .field-hint {
+            display: block;
+            margin-top: 6px;
+            font-size: 10px;
+            color: #9aa7b5;
+        }
     </style>
 </head>
 
@@ -482,6 +521,12 @@
                 Silakan masuk menggunakan akun Admin
                 atau Pasien untuk mengakses sistem PICOBOT.
             </p>
+
+            @if (session('success'))
+                <div class="success-message">
+                    {{ session('success') }}
+                </div>
+            @endif
 
             @if ($errors->any())
                 <div class="error-message">
@@ -549,6 +594,11 @@
                 </button>
 
             </form>
+
+            <div class="switch-link">
+                Pasien dan belum punya akun?
+                <a href="{{ route('register') }}">Daftar di sini</a>
+            </div>
 
             <div class="form-footer">
                 Sistem Monitoring Progres Latihan Terapi Stroke<br>

@@ -35,7 +35,11 @@ class PatientController extends Controller
     {
         $this->authorizeAdmin();
 
-        $patientUsers = User::where('role', 'pasien')->orderBy('name')->get();
+        // Hanya akun pasien yang belum terhubung dengan data pasien mana pun
+        $patientUsers = User::where('role', 'pasien')
+            ->whereDoesntHave('patient')
+            ->orderBy('name')
+            ->get();
 
         return view('patients.create', compact('patientUsers'));
     }
@@ -103,7 +107,14 @@ class PatientController extends Controller
     {
         $this->authorizeAdmin();
 
-        $patientUsers = User::where('role', 'pasien')->orderBy('name')->get();
+        // Akun yang belum terhubung + akun yang saat ini terhubung ke pasien ini
+        $patientUsers = User::where('role', 'pasien')
+            ->where(function ($query) use ($patient) {
+                $query->whereDoesntHave('patient')
+                    ->orWhere('id', $patient->user_id);
+            })
+            ->orderBy('name')
+            ->get();
 
         return view('patients.edit', compact('patient', 'patientUsers'));
     }
