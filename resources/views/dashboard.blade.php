@@ -482,22 +482,31 @@
             </a>
 
             <!-- MONITORING PROGRES -->
-            <div class="card">
-                <div class="card-icon purple">
-                    <i class="fa-solid fa-chart-line"></i>
+            <a href="{{ Auth::user()->role === 'admin'
+                    ? route('progress.index')
+                    : route('progress.mine') }}"
+               class="card-link">
+                <div class="card">
+                    <div class="card-icon purple">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+
+                    <h3>
+                        {{ Auth::user()->role === 'admin'
+                            ? 'Monitoring Progres'
+                            : 'Progres Saya' }}
+                    </h3>
+
+                    <p>
+                        Menampilkan perkembangan rehabilitasi pasien
+                        berdasarkan aktivitas dan hasil latihan.
+                    </p>
+
+                    <div class="card-arrow">
+                        Buka Menu <i class="fa-solid fa-arrow-right"></i>
+                    </div>
                 </div>
-
-                <h3>Monitoring Progres</h3>
-
-                <p>
-                    Menampilkan perkembangan rehabilitasi pasien
-                    berdasarkan aktivitas dan hasil latihan.
-                </p>
-
-                <div class="card-arrow">
-                    Segera Hadir
-                </div>
-            </div>
+            </a>
 
         </div>
     </main>
