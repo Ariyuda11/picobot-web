@@ -386,6 +386,10 @@
                 Kembali
             </a>
 
+            <a href="{{ route('progress.show', $patient->id) }}" class="btn btn-back">
+                Lihat Progres Rehabilitasi
+            </a>
+
             <a href="{{ route('patients.edit', $patient->id) }}" class="btn btn-edit">
                 Edit Data Pasien
             </a>
